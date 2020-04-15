@@ -1,0 +1,49 @@
+---
+title: "Daniel_Park_Assignment4"
+output:
+  word_document: default
+  html_document: default
+---
+
+The simple data analysis project I decided to pursue was to determine who was the best worker between the 5 Employees of Brooklyn 99 Wooden Shirt Store. To begin, I started with creating a usable data set through the tools learned in the course. 
+
+The first thing I did was create vectors to use in my dataframe. 
+```{r}
+Employee <- c("Abe Lincoln","Donald Duck","Ragnar L","Michael Scott","Doug Judy")
+Salary <-c(30000,10000,70000,40000,20000)
+Sales_Made <-c(30,10,70,40,20)
+Hours_Worked <-c(10,20,50,15,32)
+```
+
+Now that I had my vectors, I needed to put them into a dataframe in order to use libraries to manipulate and visualize the data. 
+
+```{r}
+employ.data <-data.frame(Employee,Salary,Sales_Made,Hours_Worked)
+employ.data
+```
+
+Now I was ready to manipulate the data in order to answer my analysis question. To do this, I utilized the Dplyr package. I decided to utilize Dplyr because it contains the grammar for data manipulation. The functions that Dplyr contains allows for ease in manipulating the data, especially for later on when the Data is plotted. 
+
+```{r}
+library(dplyr)
+```
+
+In order to determine the best sales person on the team, I had to determine the average sales per hour. The reason for this was because it was entirely possible that certain employees had more sales due to the length of time they spent at work rather than their ability to sell product. As a result, I created a new column titled "Avg_Sales_Per_Hour". 
+
+```{r}
+New.Data <-mutate(employ.data,Avg_Sales_Per_Hour = Sales_Made/Hours_Worked)
+New.Data
+```
+
+This new dataframe uses a dplyr function to calculate average sales by dividing the number of sales made by the number of hours worked. 
+
+In order to help make the data easier to interpret, I decided i needed to plot it in a visual. To do this, i used the barplot function. 
+```{r}
+counts <-c(New.Data$Avg_Sales_Per_Hour)
+barplot(counts,main = 'Average Sales Per Hour', xlab = 'Employee', ylab = 'Sales Per Hour', names.arg = New.Data$Employee )
+```
+
+Based on the visual, it become extremely clear that Abe Lincoln and Michael Scott are the best sales employees while Donald Duck and Doug Judy are the least performing. 
+
+
+
